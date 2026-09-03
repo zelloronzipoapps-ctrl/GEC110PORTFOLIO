@@ -249,6 +249,39 @@
     <footer>
         &copy; Dianna Rhain R. Cabucos &bull; GEC110 Academic Portfolio Submission
     </footer>
+<!-- Lightbox Container -->
+<div id="lightbox" class="lightbox-modal">
+    <img id="lightbox-img" class="lightbox-content" src="" alt="">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+</div>
 
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const images = document.querySelectorAll('.photo-frame img');
+
+    // Open lightbox on image click and load source + caption
+    images.forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightboxCaption.textContent = img.alt; // Pulls text directly from alt attribute
+            lightbox.classList.add('active');
+        });
+    });
+
+    // Close lightbox when clicking anywhere
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            lightbox.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
