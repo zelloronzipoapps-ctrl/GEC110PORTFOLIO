@@ -171,15 +171,15 @@
             margin: 0 auto 40px auto;
         }
 
-        /* Lightbox Backdrop */
+        /* --- LIGHTBOX POPUP CSS --- */
         .lightbox-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixes to viewport over all content */
+            z-index: 9999;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(8px);
             flex-direction: column;
@@ -188,12 +188,10 @@
             padding: 20px;
         }
 
-        /* Lightbox Active State */
         .lightbox-modal.active {
-            display: flex;
+            display: flex; /* Displays as flexible box when active */
         }
 
-        /* Expanded Image Styling */
         .lightbox-content {
             max-width: 85%;
             max-height: 75vh;
@@ -203,7 +201,6 @@
             box-shadow: 0 0 30px rgba(197, 160, 89, 0.25);
         }
 
-        /* Styled Image Caption */
         .lightbox-caption {
             font-family: 'Cinzel', serif;
             font-size: 0.95rem;
@@ -214,7 +211,6 @@
             max-width: 80%;
         }
 
-        /* Navigation Buttons */
         .lightbox-btn {
             position: absolute;
             top: 50%;
@@ -228,7 +224,7 @@
             border-radius: 4px;
             transition: background 0.3s, color 0.3s;
             user-select: none;
-            z-index: 1001;
+            z-index: 10001;
         }
 
         .lightbox-btn:hover {
@@ -239,7 +235,6 @@
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
 
-        /* Close Button */
         .lightbox-close {
             position: absolute;
             top: 20px;
@@ -249,7 +244,7 @@
             cursor: pointer;
             transition: color 0.3s;
             user-select: none;
-            z-index: 1001;
+            z-index: 10001;
         }
 
         .lightbox-close:hover {
@@ -335,6 +330,7 @@
         &copy; Dianna Rhain R. Cabucos &bull; GEC110 Academic Portfolio Submission
     </footer>
 
+    <!-- LIGHTBOX OVERLAY CONTAINER -->
     <div id="lightbox" class="lightbox-modal">
         <span class="lightbox-close" id="lb-close">&times;</span>
         <button class="lightbox-btn lightbox-prev" id="lb-prev">&#10094;</button>
@@ -362,7 +358,7 @@
             lightboxCaption.textContent = images[currentIndex].alt;
         }
 
-        // Open lightbox
+        // Open popup on image click
         images.forEach((img, idx) => {
             img.addEventListener('click', () => {
                 updateLightbox(idx);
@@ -370,7 +366,7 @@
             });
         });
 
-        // Navigation handlers
+        // Navigation controls
         function showNext() {
             const newIndex = (currentIndex + 1) % images.length;
             updateLightbox(newIndex);
@@ -393,14 +389,14 @@
 
         closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
 
-        // Close on background click
+        // Close on backdrop click
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
                 lightbox.classList.remove('active');
             }
         });
 
-        // Keyboard navigation
+        // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
             
